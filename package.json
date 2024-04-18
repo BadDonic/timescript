@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@baddonic/timescript",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "types": "./dist/@types",
   "main": "./dist/index.js",
   "scripts": {
