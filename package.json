@@ -2,6 +2,7 @@
   "type": "module",
   "name": "@baddonic/timescript",
   "version": "1.0.2",
+  "types": "./dist/@types",
   "main": "./dist/index.js",
   "scripts": {
     "dev": "tsx watch ./src/index.ts",
