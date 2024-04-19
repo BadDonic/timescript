@@ -15,16 +15,20 @@ defaults:
 
 # Jobs run in parallel by default
 jobs:
+
   test:
     name: 'Run unit tests'
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 18, 20, 21 ]
     steps:
       - uses: actions/checkout@v4
         name: 'Checkout repository'
       - name: "Set up Node.js"
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ matrix.node }}
           cache: 'yarn'
 
       - name: 'Install Dependencies'
@@ -35,6 +39,9 @@ jobs:
   lint:
     name: 'Run linter'
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 18, 20, 21 ]
     steps:
       - uses: actions/checkout@v4
         name: 'Checkout repository'
@@ -42,7 +49,7 @@ jobs:
       - name: "Set up Node.js"
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ matrix.node }}
           cache: 'yarn'
 
       - name: 'Install Dependencies'
