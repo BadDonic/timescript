@@ -8,8 +8,7 @@
     "dev": "tsx watch ./src/index.ts",
     "build": "rm -rf dist && tsc",
     "test": "vitest",
-    "coverage": "vitest run --coverage",
-    "lint": "eslint ./src/**"
+    "coverage": "vitest run --coverage"
   },
   "keywords": [],
   "author": "",
