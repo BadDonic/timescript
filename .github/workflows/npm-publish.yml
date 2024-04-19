@@ -1,0 +1,45 @@
+#  .github/workflows/npm-publish.yml
+
+name: Publish a Node.js Package to the NPM registry
+
+# Trigger this workflow whenever a new PR is closed on the main branch
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+
+jobs:
+  # A second CI cycle on merge to ensure code (including other PRs)
+  # is not breaking
+  ci:
+    runs-on: ubuntu-latest
+    # run the job, only if the PR was merged successfully
+    if: github.event.pull_request.merged == true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+      - run: |
+          yarn       
+          yarn test  
+          yarn lint  
+
+  publish-npm:
+    needs: ci   # Ensure that the build job is run before this job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+          registry-url: https://registry.npmjs.org/
+      - run: |
+          yarn
+          yarn build
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
