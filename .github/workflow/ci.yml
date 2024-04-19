@@ -27,3 +27,15 @@ jobs:
 
       - name: 'Run tests'
         run: npm test
+  lint:
+    name: 'Run linter'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: 'Checkout repository'
+
+      - name: 'Install Dependencies'
+        run: npm ci
+
+      - name: 'Run linter'
+        run: npm run lint
